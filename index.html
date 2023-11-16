@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>serach</title>
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
+    <script src="https://kit.fontawesome.com/b79024c76f.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="shot">
+                <video class="shot__back" id="video" autoplay muted playsinline></video>
+
+        <div class="shot__contents">
+            <!-- <div class="move"><i class="fa-solid fa-xmark iconsize"></i></div> -->
+
+            <div class="flash">
+                <!-- フラッシュなしアイコン --><img src="./images/un_flash.svg" alt="">
+
+                <!-- フラッシュありアイコン--><!-- <i class="fa-solid fa-bolt iconsize"></i> -->
+            </div>
+
+            <div class="erea"><img src="./images/search_area.svg" alt=""></div>
+
+            <p class="comment">シャッターボタンをタップして検索</p>
+            <div class="btn" id="captureButton"><i class="fa-solid fa-magnifying-glass iconsize"></i></div>
+        </div>
+    </div>
+
+    <!-- <button id="captureButton">キャプチャ</button> -->
+    <!-- <div id="output"></div> -->
+        <div class="load none">
+            <div class="move"><i class="fa-solid fa-arrow-left iconsize"></i></div>
+            <div class="pic">
+                <img  class="pic__back">
+                </img>
+                <div class="pic__erea"><img src="./images/search_area.svg" alt=""></div>
+            </div>
+
+            <div class="politician">
+                <div class="politician__inner">
+                    <h1 class="politician__name"></h1>
+                    <div class="politician__position">
+                        <p class="affiliation"></p>
+                        <p class="age"></p>
+                    </div>
+                    <p class="politician__explanation"></p>
+                    <a class="politician__link none" href="" target="_blank"><i class="fa-solid fa-link"></i>経歴・公約を見る</a>
+                </div>
+            </div>
+        </div>
+
+<script src="./js/script.js"></script>
+</body>
+
+</html>
