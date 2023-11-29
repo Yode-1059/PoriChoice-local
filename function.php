@@ -14,7 +14,6 @@ function dbConect()
 
     return $dbh;
 }
-
 function sql($i)
 {
     $dbh = dbConect();
@@ -24,14 +23,16 @@ function sql($i)
 require __DIR__ . '/vendor/autoload.php';
 use Google\Cloud\Vision\V1\ImageAnnotatorClient;
 
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/adminkey.json');
+
 // クライアントから送信されたデータを受け取る
 $input = json_decode(file_get_contents('php://input'), true);
-$imageDataUrl = $input['imageDataUrl'];
+$imageDataUrl = $input['imageDataUrl']; // ここでデータURLを取得
 
 // データURLから画像データを抽出
 list($type, $imageData) = explode(';', $imageDataUrl);
 list(, $imageData) = explode(',', $imageData);
-$imageData = base64_decode($imageData);
+$imageData = base64_decode($imageData); // ここでBase64デコード
 
 $imageAnnotator = new ImageAnnotatorClient();
 
@@ -42,7 +43,6 @@ $labels = $responseLabel->getLabelAnnotations();
 // 文字検出
 $responseText = $imageAnnotator->textDetection($imageData);
 $texts = $responseText->getTextAnnotations();
-
 // 検出結果をクライアントに返す
 $result = [
     'labels' => [],
@@ -57,10 +57,7 @@ $result = [
 $dbh = dbConect();
 $sql = "SELECT * FROM `politician` WHERE `name` LIKE ?";
 $stmt = $dbh->prepare($sql);
-
-foreach ($labels as $label) {
-    $result['labels'][] = $label->getDescription();
-}
+$stmt->execute(["%" . $word . "%"]);
 
 $str_leng = 0;
 $words = explode("\n", $texts[0]->getDescription());
@@ -83,10 +80,16 @@ foreach ($words as $word) {
             }
         }
     }
-    // if ($result["name"] == null) {
-    //     $result['name'][] = "いないよ";
-    //     $result['description'][] = "ないよ";
-    // }
+}
+if ($result["name"] == null) {
+    $result['name'][] = "いないよ";
+    $result['description'][] = "ないよ";
+    $result["affiliation"][] = "なし";
+    $result["age"][] = "1234";
+    $result["link"][] = "#";
+    $result["texts"][] = $texts;
+    $result["url"][] = $imageDataUrl;
+    $result["data"][] = $texts;
 }
 
 header('Content-Type: application/json');
