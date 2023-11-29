@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     console.log("click");
     shot.classList.toggle("none");
     load.classList.toggle("none");
-    politician__link.classList.add("none");
+    // politician__link.classList.add("none");
   });
 
   const changeSub = (obj) => {
@@ -54,12 +54,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
   captureButton.addEventListener("click", () => {
-    deleteSub();
+    // deleteSub();
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    shot.classList.toggle("none");
-    load.classList.toggle("none");
 
     const ctx = canvas.getContext("2d");
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -71,23 +69,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     pic__back.setAttribute("src", imgDataUrl);
 
-    fetch("sample.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ imageDataUrl: imgDataUrl }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        changeSub(data);
-        alert("できた");
-        politician__link.classList.remove("none");
-      })
-      .catch((error) => {
-        politician__name.textContent = "もう一度試してください";
-        console.log("Error:", error);
-      });
+    //表示切替
+    shot.classList.toggle("none");
+    load.classList.toggle("none");
+
+    if (true) {
+      //モーダル出す処理を記述
+    } else {
+      //検索できなかった・エラーが出た際の処理を記述（）
+    }
+
+    //サーバー処理
+    // fetch("index.php", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ imageDataUrl: imgDataUrl }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     changeSub(data);
+    //     alert("できた");
+    //     politician__link.classList.remove("none");
+    //   })
+    //   .catch((error) => {
+    //     politician__name.textContent = "もう一度試してください";
+    //     console.log("Error:", error);
+    //   });
   });
 });
