@@ -8,13 +8,17 @@ $dotenv->load();
 
 $input = file_get_contents('php://input');
 $data = json_decode($input, true);
-// $summary = $data['summary'];
+$summary = $data['summary'];
 
-$summary = "ウルトラマンが拉致されて";
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.local');
+$dotenv->load();
 
 $open_ai_key = getenv('OPENAI_API_KEY');
-echo $open_ai_key;
-echo "<br>";
+if (!$open_ai_key) {
+    echo json_encode(["error" => "APIキーが設定されていません"]);
+    exit;
+}
+
 $open_ai = new OpenAi($open_ai_key);
 $chat = $open_ai->chat([
     'model' => 'gpt-3.5-turbo',

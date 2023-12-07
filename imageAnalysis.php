@@ -1,10 +1,10 @@
 <?php
 header('Content-Type: application/json');
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 use Google\Cloud\Vision\V1\ImageAnnotatorClient;
 use Orhanerday\OpenAi\OpenAi;
 
-putenv('GOOGLE_APPLICATION_CREDENTIALS='.__DIR__.'/adminkey.json');
+putenv('GOOGLE_APPLICATION_CREDENTIALS=' . __DIR__ . '/adminkey.json');
 
 // クライアントから送信されたデータを受け取る
 $input = json_decode(file_get_contents('php://input'), true);
@@ -30,9 +30,14 @@ $textData = preg_replace($pattern, "", $textData);
 // echo $textData;
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.local');
 $dotenv->load();
-$open_ai_key = getenv('OPENAI_API_KEY');
-$open_ai = new OpenAi($open_ai_key);
 
+$open_ai_key = getenv('OPENAI_API_KEY');
+if (!$open_ai_key) {
+    echo json_encode(["error" => "APIキーが設定されていません"]);
+    exit;
+}
+
+$open_ai = new OpenAi($open_ai_key);
 $chat = $open_ai->chat([
     'model' => 'gpt-3.5-turbo',
     'messages' => [
@@ -42,7 +47,7 @@ $chat = $open_ai->chat([
         ],
         [
             "role" => "user",
-            "content" => "この文字列から最も人名らしいものを1つだけ選んで出力してください: ".$textData
+            "content" => "この文字列から最も人名らしいものを1つだけ選んで出力してください: " . $textData
         ],
     ],
     'temperature' => 1.0,
