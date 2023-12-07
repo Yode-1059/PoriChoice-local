@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "poli-choice",
+  "private_key_id": "ffd864db4f7bad7904de15a2d4b36c34049ba81d",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCkdgx8+Khz4m5e\n+JVwYyd2DQW/ajOcDytBHPWuCRVbKVwZCh2TjWX+uOuYiYC9IaNvj5IKbjZKsjqO\n4w1g4nZ8QtCqFZHl5zeHYRLURNBkOIG/Jab+koOv8UTPTfhmbH2RGtkfteZ/eVeh\nStku+mAUdtYmkNnuxQ6A7kJn/gBfXgUd8w4vCcOxwqkkKEoRTomh263VTVui63Qb\ngIQTHct4Ol7oeIE93a37MVwuIcs4gwcBwxYF8e2wuWcxGpgCJCKZxXOzmtJo3Ey0\nwomrfBZSawX2L4zdCxZ3KTOHF3QCiEcqjUzquIn3zO8dA7NEkVZ3BbwRkTdRP7fS\nMGP9KIXRAgMBAAECggEAPrrOUZ6w9h7AlZYAvjD73MHj1tql29lHWNs4dIz/admx\nSNW8aUsOQ+X56yFLixh5E/TxsevO5pfr0ROWx0UqB4SevbljgIs8eXVT7sZerFOH\nXcb5VvHArAv9gIsPe9XW4VGZzsgdprK8c4eupoYWvseDMIugrLvaJ+B5UNwn/Tet\nX+GzzAhW8fpX55HZ1RBXBvAEqxQoyEBLotrkoDolDJnOf2tdC+bBgrD3YzkpEGhD\nogT9gJ6RFSJyyiWvt/j8sD4uKt2eBW65aPci+iU/Yygxfq0hm2jlJlSSl58lz6kC\ntNV8SYqWnnDlg0wL8CfgRCYuCEPmt20MjlF7m7mfJwKBgQDUnj0Waawk9XIYakGt\nmHTzW1BgS1SmuXdL24YLTOA0yDv5ywPIr/ZpBtv2+dxTi0+XwfqDKjJ31sYlzlgQ\n5FfBOv0hrqu951BpAOPNyNhpK9arrbPvYfOM5B7aMKqpxkageEHEZni+Up6sHRJZ\ntqNyif8NdaUJpUjD5GoiHZKK9wKBgQDGBGh44dwl7JKUhse3DbOTlu48Nxun1cZa\nU7UauYYJMemvxmIP5wSHY3Q8QOXmgmUrcL/rdm13+Wz5012ETwj8LnOKfjCZJGQ+\nMgtLD+rxfXK61juTO/irm60r+7Uffm4/P5QIihPevpQK6F9YpBEv07SqO0n4lDPo\nWPoiTFU7dwKBgG6xk4w/p+f2AVjEuTzvyrOILuhzT7cdiAZuW/M2KuRP+ympkGbD\ndb5oW8zReOvl86JG023GYlAR+UdljmP8/dMUKwWGMtPDwhFo7TEOB915fWIUJUHT\n9UC843MlMzUAjXSuJ09hKiusR//DgvJCLAZN4gPX4/yJmMCkAr2QN+MxAoGAIEBD\ni7ytkHexgANbr9LJdrZUYvZOyM0mmzua+ZlR3VmFyB01h4WG1U47djzTtPFz7NlW\nSNFnDu1O9Hmad5wvyHMAWoQnAipNMVwRPs5+44odD5Uo6tgPrlOSpuE+JL0A08hV\nIfbrOZIspoImVVeTfQisGjXB3Hy235buVnu8Pg0CgYEAveZvCSNf71oIyLoooq3k\nOGtzpSLAlBjdLJ8iJnVxYa2WNBkPV8FEv8wJfLMAN7VIfjysvMALennLTE8ycnKD\nIDHlfaTZK0BBxJKWqGEssG3L/LcLRbuqb1nixAWurXtxvFpnxqdQQ/s4FE4DPQv2\nhn/EYkv76zKX2Ur7jRtvNHU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "poli-choice-take@poli-choice.iam.gserviceaccount.com",
+  "client_id": "101405293297461977319",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/poli-choice-take%40poli-choice.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

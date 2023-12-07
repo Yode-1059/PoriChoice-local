@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+header('Content-Type: application/json');
 function dbConect()
 {
     $dsn = 'mysql:dbname=PoriChoice;host=localhost';
@@ -7,11 +11,14 @@ function dbConect()
 
     try {
         $dbh = new PDO($dsn, $user, $pass);
-        echo '';
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'error' => true,
+            'message' => $e->getMessage()
+        ]);
         exit();
     }
-
     return $dbh;
 }
 function sql($i)

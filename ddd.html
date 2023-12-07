@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>安倍晋三の情報</title>
+</head>
+
+<body>
+        <div id="content">情報を読み込み中..
+        </div>
+        <p class="sum"></p>
+        <a href="" target="_new">公式サイト</a>
+        </body>
+    <script>
+    const btn = document.querySelector("button");
+    const nameF = document.querySelector("#name")
+    const link = document.querySelector("a")
+    const sum=document.querySelector(".sum")
+    document.addEventListener('DOMContentLoaded', function () {
+            fetch('imageAnalysis.php')
+                .then(response => response.json())
+                .then(data => fetchWikipediaData(data.data))
+                .catch(error => console.error('Error:', error));
+        });
+    function fetchWikipediaData(pageName) {
+        const endpoint = "https://ja.wikipedia.org/w/api.php";
+        const params = {
+            action: "parse",
+            page: pageName,
+            format: "json",
+            prop: "text", // ページの内容を取得
+            section: 0, // 概要部分を取得
+            origin: "*"
+        };
+
+        const url = endpoint + "?" + new URLSearchParams(params).toString();
+
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                const content = data.parse.text["*"];
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(content, "text/html");
+
+                // 概要部分の取得
+                 const introParagraphs = doc.querySelectorAll('p');
+                let introText = "";
+                for (let i = 0; i < introParagraphs.length && i < 3; i++) {
+                    introText += introParagraphs[i].textContent + "\n";
+                }
+
+                // 情報ボックスの取得
+                const infobox = doc.querySelector(".infobox");
+                const tbody = infobox ? infobox.querySelector("tbody") : null;
+
+                // 特定の情報を検索
+                const birthDateRow = tbody ? Array.from(tbody.querySelectorAll("tr")).find(row => row.innerText.includes("生年月日")) : null;
+                const affiliationRow = tbody ? Array.from(tbody.querySelectorAll("tr")).find(row => row.innerText.includes("所属政党")) : null;
+                const siteRow = tbody ? Array.from(tbody.querySelectorAll("tr")).find(row => row.innerText.includes("公式サイト")) : null;
+
+                // 情報の抽出
+                const birthDate = birthDateRow ? birthDateRow.querySelector("td").textContent : "情報が見つかりません";
+                const affiliation = affiliationRow ? affiliationRow.querySelector("td").textContent : "情報が見つかりません";
+                const site = siteRow ? siteRow.querySelector("td").querySelector("a").getAttribute("href") : "#";
+
+                // ページへの情報の挿入
+                const contentElement = document.getElementById("content");
+                if (contentElement) {
+                    contentElement.textContent = `生年月日: ${birthDate}\n所属政党:${affiliation}`;
+                }
+
+                const link = document.getElementById("link");
+                if (link) {
+                    link.setAttribute("href", site);
+                }
+
+                // デバッグ用のログ出力
+                console.log(doc);
+                console.log(infobox, tbody, birthDateRow);
+                //要約
+                fetch("overviewSummary.php", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ summary: introText }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // ここでPHPからの応答を処理
+                        sum.textContent=data.data
+                        console.log(data);
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            })
+            .catch(error => {
+                console.error("エラーが発生しました:", error);
+                document.getElementById("content").textContent = "情報の取得に失敗しました。";
+            });
+        }
+</script>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>誰かの情報</title>
+</head>
+
+<body>
+    <h1>誰かの誕生日に関する情報</h1>
+    <input type="text" name="" id="name"value="安倍晋三">
+    <button>検索</button>
+    <div id="content" style="display: none;">情報を読み込み中..
+    </div>
+    <a href="" target="_new">公式サイト</a>
+</body>
+<script>
+        const btn =document.querySelector("button");
+        const nameF=document.querySelector("#name")
+        const link =document.querySelector("a")
+
+        btn.addEventListener("click",()=>{
+            console.log(nameF.value)
+            document.getElementById("content").style="display:block";
+            fetchWikipediaData(nameF.value)
+        })
+        function fetchWikipediaData(name) {
+            const endpoint = "https://ja.wikipedia.org/w/api.php";
+            const params = {
+                action: "parse",
+                page: name,
+                prop: "text",
+                format: "json",
+                origin: "*"
+            };
+
+            const url = endpoint + "?" + new URLSearchParams(params).toString();
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const content = data.parse.text["*"];
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(content, "text/html");
+                    const infobox = doc.querySelector(".infobox");
+                    const tbody=infobox.querySelector("tbody")
+                    const birthDateRow = Array.from(tbody.querySelectorAll("tr")).find(row => row.innerText.includes("生年月日"));
+                    const affiliationRow = Array.from(tbody.querySelectorAll("tr")).find(row => row.innerText.includes("所属政党"));
+                    const siteRow= Array.from(tbody.querySelectorAll("tr")).find(row => row.innerText.includes("公式サイト"));
+                    const birthDate = birthDateRow ? birthDateRow.querySelector("td").textContent : "情報が見つかりません";
+                    const affiliation=affiliationRow ? affiliationRow.querySelector("td").textContent : "無所属";
+                    const site=siteRow ?siteRow.querySelector("td").querySelector("a").getAttribute("href"):"#"
+                    document.getElementById("content").textContent = `生年月日: ${birthDate}\n所属政党:${affiliation}`;
+                    link.setAttribute("href",site)
+                    console.log(doc)
+                })
+                .catch(error => {
+                    console.error("エラーが発生しました:", error);
+                    document.getElementById("content").textContent = "情報の取得に失敗しました。";
+                });
+        }
+
+        fetch("APIsample.php",{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            }
+        })
+        .then((response) => response.json())
+        .then((data)=>{
+            console.log(data)
+        })
+</script>
+</html>
