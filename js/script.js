@@ -175,8 +175,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     shotImage.classList.add("shot__image");
     shotImage.setAttribute("src", imgDataUrl);
     shotBox.append(shotImage);
-    console.log(ctx);
-    console.log(imgDataUrl);
     //表示切替
 
     // サーバー処理
@@ -214,7 +212,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const content = data.parse.text["*"];
         const parser = new DOMParser();
         const doc = parser.parseFromString(content, "text/html");
@@ -257,7 +254,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
           .then((response) => response.json())
           .then((data) => {
             // ここでPHPからの応答を処理
-            console.log(data.data);
             const info = {
               name: pageName,
               age: birthDateRow
