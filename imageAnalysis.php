@@ -27,9 +27,6 @@ $textData = implode("", $words);
 
 $pattern = '/[^\x{4e00}-\x{9faf}]/u';
 $textData = preg_replace($pattern, "", $textData);
-// echo $textData;
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.local');
-$dotenv->load();
 
 $open_ai_key = getenv('OPENAI_API_KEY');
 if (!$open_ai_key) {

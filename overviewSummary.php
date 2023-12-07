@@ -10,9 +10,6 @@ $input = file_get_contents('php://input');
 $data = json_decode($input, true);
 $summary = $data['summary'];
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__, '.env.local');
-$dotenv->load();
-
 $open_ai_key = getenv('OPENAI_API_KEY');
 if (!$open_ai_key) {
     echo json_encode(["error" => "APIキーが設定されていません"]);

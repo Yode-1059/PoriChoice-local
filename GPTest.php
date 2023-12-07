@@ -1,12 +1,16 @@
 <?php
 
-require __DIR__.'/vendor/autoload.php'; // remove this line if you use a PHP Framework.
+require __DIR__ . '/vendor/autoload.php'; // remove this line if you use a PHP Framework.
 
 use Orhanerday\OpenAi\OpenAi;
 
 $open_ai_key = getenv('OPENAI_API_KEY');
-$open_ai = new OpenAi("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");
+if (!$open_ai_key) {
+    echo json_encode(["error" => "APIキーが設定されていません"]);
+    exit;
+}
 
+$open_ai = new OpenAi($open_ai_key);
 // APIリクエスト
 $chat = $open_ai->chat([
     'model' => 'gpt-3.5-turbo',
@@ -17,7 +21,7 @@ $chat = $open_ai->chat([
         ],
         [
             "role" => "user",
-            "content" => "このデータに含まれる人名データを割り出して: ".$jsonData
+            "content" => "こんにちは"
         ],
     ],
     'temperature' => 1.0,
